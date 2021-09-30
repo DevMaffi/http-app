@@ -24,11 +24,14 @@ class App extends Component {
     this.setState({ posts });
   };
 
-  handleUpdate = post => {
+  handleUpdate = async post => {
+    const { data } = await axios.patch(`${apiEndpoint}/${post.id}`, {
+      title: 'UPDATED',
+    });
+
     const posts = [...this.state.posts];
     const index = posts.indexOf(post);
-    posts[index] = [...posts[index]];
-    posts[index].title = 'UPDATED';
+    posts[index] = data;
 
     this.setState({ posts });
   };
