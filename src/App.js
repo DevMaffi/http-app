@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 
 import http from './services/httpService';
 import config from './config';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 class App extends Component {
   state = {
@@ -43,10 +46,10 @@ class App extends Component {
     this.setState({ posts });
 
     try {
-      await http.delete(`${config.apiEndpoint}/${post.id}`);
+      await http.delete(`afsdas${config.apiEndpoint}/${post.id}`);
     } catch (ex) {
       if (ex.response && ex.response.status === 404) {
-        alert('This post has already been deleted.');
+        toast.error('This post has already been deleted.');
       }
 
       this.setState({ posts: originalPosts });
@@ -56,6 +59,7 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
+        <ToastContainer />
         <button className="btn btn-primary" onClick={this.handleAdd}>
           Add
         </button>
